@@ -3,20 +3,20 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-    res.send("Display all categories")
+    res.render("categoryIndex", { title: "Categories index" });
 });
 
 router.get("/create", (req, res) => {
-    res.send("Display form to create new category")
+    res.render("categoryForm", { title: "Create category", formAction: "/categories/create" });
 });
 
 router.post("/create", (req, res) => {
-    res.send("Call to create new category")
+    res.send("Call to create new category");
 });
 
 router.get("/:categoryName", (req, res) => {
     const categoryName = req.params.categoryName;
-    res.send(`You looked for category: ${categoryName}`);
+    res.render("categoryDetails", {title: categoryName});
 });
 
 router.delete("/:categoryName", (req, res) => {
@@ -26,7 +26,7 @@ router.delete("/:categoryName", (req, res) => {
 
 router.get("/:categoryName/modify", (req, res) => {
     const categoryName = req.params.categoryName;
-    res.send(`Form to modify category: ${categoryName}`);
+    res.render("categoryForm", { title: `Modify category ${categoryName}`, formAction: `/categories/${categoryName}/modify`});
 });
 
 router.post("/:categoryName/modify", (req, res) => {
