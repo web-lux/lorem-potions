@@ -2,8 +2,6 @@ const Categories = require("../models/categories");
 const { body, validationResult } = require("express-validator");
 const { decode } = require("html-entities");
 
-
-
 const category_index = (req, res) => {
     Categories.find()
         .then(data => res.render("categoryIndex", { title: "Categories", categories: data, decode: decode }))
@@ -84,7 +82,7 @@ const category_modify_post = [
 
         if (!validationError.isEmpty()) {
             res.render("categoryForm", {
-                title: "Create category", formAction: "/categories/create", category: category, errors: validationError.array()
+                title: "Modify category", formAction: `/categories/${req.params.id}/modify`, category: category, errors: validationError.array()
             });
         } else {
             const updatedCategory = await Categories.findByIdAndUpdate(req.params.id, category, {});
