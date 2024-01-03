@@ -4,11 +4,19 @@
     <main>
         <h2>Categories overview</h2>
         <nav aria-label="categories navigation">
-            <ul>
-                <li>Category name 1</li>
-                <li>Category name 2</li>
-            </ul>
+            <% if (categories.length > 0) { %>
+                <ul>
+                    <% categories.forEach(category => { %>
+                        <li>
+                            <a href="<%= category.url %>"><%= decode(category.name) %></a>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } else { %>
+                <p>No categories</p>
+            <% } %>
         </nav>
+        <a href="/categories/create">Create a new category</a>
     </main>
 
     <%- include("./partials/footer.ejs") %>

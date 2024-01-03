@@ -2,8 +2,9 @@
 <body>
     <%- include("./partials/header.ejs") %>
     <main>
-        <h2>Category Name</h2>
-        <p>Description</p>
+        <h2><%= decode(category.name) %></h2>
+        <p><%= decode(category.description) %></p>
+        <button id="delete" data-id="<%= category._id %>">Delete category</button>
 
         <nav aria-label="potions navigation">
             <ul>
@@ -12,6 +13,17 @@
             </ul>
         </nav>
     </main>
+
+    <script>
+        const deleteBtn = document.querySelector("#delete");
+        deleteBtn.addEventListener("click", () => {
+            const url = `/categories/${deleteBtn.dataset.id}`;
+            fetch(url, { method: 'DELETE' })
+            .then(res => res.json())
+            .then(res => window.location.replace(res.redirect))
+            .catch(err => console.log(err));
+        });
+    </script>
 
     <%- include("./partials/footer.ejs") %>
 </body>
