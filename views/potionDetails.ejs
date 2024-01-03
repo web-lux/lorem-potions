@@ -1,0 +1,25 @@
+<%- include("./partials/head.ejs") %>
+<body>
+    <%- include("./partials/header.ejs") %>
+    <main>
+        <h2><%= decode(potion.name) %></h2>
+        <a href="/categories/<%= potion.category._id %>"><%= decode(potion.category.name) %></a>
+        <p><%= decode(potion.description) %></p>
+        <p><%= decode(potion.number_in_stock) %></p>
+        <p><%= decode(potion.price) %></p>
+        <button id="delete" data-id="<%= potion._id %>">Delete potion</button>
+    </main>
+
+    <script>
+        const deleteBtn = document.querySelector("#delete");
+        deleteBtn.addEventListener("click", () => {
+            const url = `/potions/${deleteBtn.dataset.id}`;
+            fetch(url, { method: 'DELETE' })
+            .then(res => res.json())
+            .then(res => window.location.replace(res.redirect))
+            .catch(err => console.log(err));
+        });
+    </script>
+
+    <%- include("./partials/footer.ejs") %>
+</body>

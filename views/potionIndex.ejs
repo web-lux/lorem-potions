@@ -1,0 +1,23 @@
+<%- include("./partials/head.ejs") %>
+<body>
+    <%- include("./partials/header.ejs") %>
+    <main>
+        <h2>Potions overview</h2>
+        <nav aria-label="Potions navigation">
+            <% if (potions.length > 0) { %>
+                <ul>
+                    <% potions.forEach(potion => { %>
+                        <li>
+                            <a href="<%= potion.url %>"><%= decode(potion.name) %></a>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } else { %>
+                <p>No potions</p>
+            <% } %>
+        </nav>
+        <a href="/potions/create">Create a new potion</a>
+    </main>
+
+    <%- include("./partials/footer.ejs") %>
+</body>
