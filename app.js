@@ -26,6 +26,14 @@ app.use("/categories", categoryRoutes);
 
 app.use("/potions", potionRoutes);
 
+app.get("/404", (req, res) => {
+  res.render("404", { title: "404 Not Found" });
+});
+
+app.use((req, res) => {
+  res.redirect("/404");
+});
+
 app.listen("3000", () => {
     console.log("Listening to port 3000...")
 });
