@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 
 const app = express();
 
+app.use(express.static('public'));
+
 app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: true }));
@@ -19,7 +21,7 @@ async function main() {
 }
 
 app.get("/", (req, res) => {
-    res.redirect("/categories");
+  res.redirect("/categories");
 });
 
 app.use("/categories", categoryRoutes);
