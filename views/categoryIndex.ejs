@@ -1,23 +1,62 @@
 <%- include("./partials/head.ejs") %>
+
 <body>
     <%- include("./partials/header.ejs") %>
-    <main>
-        <h2>Categories overview</h2>
-        <nav aria-label="categories navigation">
-            <% if (categories.length > 0) { %>
-                <ul>
-                    <% categories.forEach(category => { %>
-                        <li>
-                            <a href="<%= category.url %>"><%= decode(category.name) %></a>
-                        </li>
-                    <% }) %>
-                </ul>
-            <% } else { %>
-                <p>No categories</p>
-            <% } %>
-        </nav>
-        <a href="/categories/create">Create a new category</a>
-    </main>
+    
+    <div class="wrapper">
 
-    <%- include("./partials/footer.ejs") %>
+        <main class="index">
+
+            <h1>Catégories</h1>
+
+            <div class="user-actions">
+                <div class="searchbar">
+                    <input type="text" aria-label="search bar" class="searchbar-input" placeholder="Filtrer...">
+                </div>
+                <button class="btn primary" aria-label="Create new category">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 7H12H2ZM7 2V12V2Z" fill="white"/>
+                        <path d="M2 7H12M7 2V12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <a href="/categories/create">Nouvelle catégorie</a>
+                </button>
+            </div>
+
+            <% if (categories.length > 0) { %>
+
+                <table>
+
+                    <thead>
+    
+                            <th>Nom</th>
+                            <th>Description</th>
+                        
+                    </thead>
+    
+                    <tbody>
+
+                        <% categories.forEach(category => { %>
+                         
+                            <tr>
+                                <td><%= decode(category.name) %></td>
+                                <td><%= decode(category.description) %></td>
+                            </tr>
+
+                        <% }) %>
+    
+                    </tbody>
+    
+                </table>
+             
+            <% } else { %>
+                <p>
+                    Aucune catégorie trouvée. 
+                    <a href="/categories/create">En créer une ?</a>
+                </p>
+            <% } %>
+
+        </main>
+
+    </div>
+
 </body>
