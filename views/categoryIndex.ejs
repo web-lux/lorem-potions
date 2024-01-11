@@ -37,7 +37,7 @@
 
                         <% categories.forEach(category => { %>
                          
-                            <tr>
+                            <tr data-name="<%= category.name %>">
                                 <td><%= decode(category.name) %></td>
                                 <td><%= decode(category.description) %></td>
                             </tr>
@@ -60,3 +60,25 @@
     </div>
 
 </body>
+
+<script>
+    const input = document.querySelector(".searchbar-input");
+    const tableBody = document.querySelector("tbody");
+    const tableRows = document.querySelectorAll("tbody tr");
+
+    input.addEventListener("input", (e) => {
+        filterTable(e.target.value);
+    });
+
+    function filterTable(value) {
+        let filteredTable = [];
+
+        tableRows.forEach(row => {
+            if (row.dataset.name.toLowerCase().startsWith(value.toLowerCase())) {
+                filteredTable.push(row.outerHTML);
+            };
+        });
+
+        tableBody.innerHTML = filteredTable.join('');
+    };
+</script>
