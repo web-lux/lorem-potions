@@ -5,6 +5,7 @@ const { decode } = require("html-entities");
 
 const potion_index = (req, res) => {
     Potions.find()
+        .populate("category")
         .then(data => res.render("potionIndex", { title: "Potions", potions: data, decode: decode }))
         .catch(err => console.log(err));
 };

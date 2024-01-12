@@ -1,23 +1,95 @@
 <%- include("./partials/head.ejs") %>
+
 <body>
     <%- include("./partials/header.ejs") %>
-    <main>
-        <h2>Potions overview</h2>
-        <nav aria-label="Potions navigation">
-            <% if (potions.length > 0) { %>
-                <ul>
-                    <% potions.forEach(potion => { %>
-                        <li>
-                            <a href="<%= potion.url %>"><%= decode(potion.name) %></a>
-                        </li>
-                    <% }) %>
-                </ul>
-            <% } else { %>
-                <p>No potions</p>
-            <% } %>
-        </nav>
-        <a href="/potions/create">Create a new potion</a>
-    </main>
+    
+    <div class="wrapper">
 
-    <%- include("./partials/footer.ejs") %>
+        <main class="index">
+
+            <h1>Potions</h1>
+
+            <div class="user-actions">
+                <div class="searchbar">
+                    <input type="text" aria-label="search bar" class="searchbar-input" placeholder="Filtrer...">
+                </div>
+                <button class="btn primary" aria-label="Create new category">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 7H12H2ZM7 2V12V2Z" fill="white"/>
+                        <path d="M2 7H12M7 2V12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <a href="/potions/create">Nouvelle potion</a>
+                </button>
+            </div>
+
+            <% if (potions.length > 0) { %>
+
+                <table>
+
+                    <thead>
+    
+                            <th>Nom</th>
+                            <th>Description</th>
+                            <th>Catégorie</th>
+                            <th>Prix</th>
+                            <th>En stock</th>
+                    </thead>
+    
+                    <tbody>
+
+                        <% potions.forEach(potion => { %>
+                         
+                            <tr data-name="<%= potion.name %>">
+                                <td>
+                                    <a href="potions/<%= potion._id %>"><%= decode(potion.name) %></a>
+                                </td>
+
+                                <td><%= decode(potion.description) %></td>
+
+                                <td><a href="categories/<%= potion.category._id %>"><%-decode(potion.category.name)%></a></td>
+
+                                <td><%= potion.price %></td>
+
+                                <td><%= potion.number_in_stock %></td>
+                            </tr>
+
+                        <% }) %>
+    
+                    </tbody>
+    
+                </table>
+             
+            <% } else { %>
+                <p>
+                    Aucune potion trouvée. 
+                    <a href="/potions/create">En créer une ?</a>
+                </p>
+            <% } %>
+
+        </main>
+
+    </div>
+
 </body>
+
+<script>
+    const input = document.querySelector(".searchbar-input");
+    const tableBody = document.querySelector("tbody");
+    const tableRows = document.querySelectorAll("tbody tr");
+
+    input.addEventListener("input", (e) => {
+        filterTable(e.target.value);
+    });
+
+    function filterTable(value) {
+        let filteredTable = [];
+
+        tableRows.forEach(row => {
+            if (row.dataset.name.toLowerCase().startsWith(value.toLowerCase())) {
+                filteredTable.push(row.outerHTML);
+            };
+        });
+
+        tableBody.innerHTML = filteredTable.join('');
+    };
+</script>
