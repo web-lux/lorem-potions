@@ -188,6 +188,10 @@ table tbody td {
     vertical-align: top;
 }
 
+table tbody td a {
+    font-weight: 600;
+}
+
 /* specific */
 
 main.index {

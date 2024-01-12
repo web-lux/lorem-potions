@@ -38,7 +38,7 @@
                         <% categories.forEach(category => { %>
                          
                             <tr data-name="<%= category.name %>">
-                                <td><%= decode(category.name) %></td>
+                                <td><a href="categories/<%= category._id %>"><%= decode(category.name) %></a></td>
                                 <td><%= decode(category.description) %></td>
                             </tr>
 
