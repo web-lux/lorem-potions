@@ -1,4 +1,5 @@
 const Categories = require("../models/categories");
+const Potions = require("../models/potions");
 const { body, validationResult } = require("express-validator");
 const { decode } = require("html-entities");
 
@@ -36,20 +37,20 @@ const category_create_post = [
     }
 ];
 
-const category_details = (req, res) => {
-    Categories.findOne({ _id: req.params.id })
-        .exec()
-        .then(data => {
-            if (data === null) {
-                res.redirect("/404");
-            } else {
-                res.render("categoryDetails", { title: data.name, category: data, decode: decode });
-            }
-        })
-        .catch(err => {
-            console.log(err);
-            res.redirect("404");
-        });
+const category_details = async (req, res) => {
+    const category = await Categories.findById(req.params.id).exec();
+    const potions = await Potions.find({ category: req.params.id }).exec();
+    
+    try {
+        if (category === null) {
+            res.redirect("/404");
+        } else {
+            res.render("categoryDetails", { title: category.name, category: category, potions: potions.length === 0 ? null : potions, decode: decode });
+        };
+    } catch (err) {
+        console.log(err);
+        res.redirect("404");
+    };
 };
 
 const category_delete = (req, res) => {

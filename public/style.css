@@ -81,6 +81,12 @@ h1.logo {
     text-align: center;
 }
 
+.hr {
+    background: var(--c200);
+    height: 1px;
+    width: 100%;
+}
+
 .btn {
     display: flex;
     padding: 8px;
@@ -101,6 +107,11 @@ h1.logo {
 
 .btn.secondary svg {
     stroke: var(--c400);
+}
+
+.btn.tertiary {
+    background: none;
+    border: solid 2px var(--c200);
 }
 
 input[type="text"] {
@@ -206,3 +217,15 @@ main.index .user-actions {
     flex-wrap: wrap;
 }
 
+main.details .user-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+main.details .hr {
+    margin: 25px 0;
+}
+
+main.details ul li a {
+    font-weight: 600;
+}
