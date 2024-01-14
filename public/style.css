@@ -114,7 +114,8 @@ h1.logo {
     border: solid 2px var(--c200);
 }
 
-input[type="text"] {
+input[type="text"],
+textarea {
     border-radius: 5px;
     border: 1px solid #EEEBF4;
     background: #FFF;
@@ -228,4 +229,35 @@ main.details .hr {
 
 main.details ul li a {
     font-weight: 600;
+}
+
+main.form form,
+main.form form div {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 15px;
+}
+
+main.form form div {
+    gap: 5px;
+}
+
+main.form ul {
+    margin-top: 20px;
+    border-top: solid 1px var(--c200);
+    padding-top: 20px;
+}
+
+main.form ul li {
+    list-style-type: circle;
+    margin-left: 25px;
+}
+
+main.form textarea {
+    padding: 10px;
+}
+
+main.form h1 {
+    margin-bottom: 10px;
 }
