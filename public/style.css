@@ -30,6 +30,10 @@ button {
     cursor: pointer;
 }
 
+fieldset {
+    border: none;
+}
+
 /* variables */
 
 html {
@@ -114,8 +118,9 @@ h1.logo {
     border: solid 2px var(--c200);
 }
 
-input[type="text"],
-textarea {
+input,
+textarea,
+select {
     border-radius: 5px;
     border: 1px solid #EEEBF4;
     background: #FFF;
@@ -260,4 +265,10 @@ main.form textarea {
 
 main.form h1 {
     margin-bottom: 10px;
+}
+
+main.form fieldset {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
 }

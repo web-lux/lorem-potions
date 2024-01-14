@@ -1,46 +1,52 @@
 <%- include("./partials/head.ejs") %>
 <body>
     <%- include("./partials/header.ejs") %>
-    <main>
-        <h2>Create a new potion</h2>
-        <form action="<%= formAction %>" method="POST">
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" value="<%- potion?.name %>">
-
-            <label for="description">Description</label>
-            <textarea name="description" id="description" cols="30" rows="10"><%- potion?.description %></textarea>
-
-            <label for="category"></label>
-            <select name="category" id="category">
-                <option value="">Please pick a category</option>
-                <% categories.forEach(category => { %>
-                    
-                    <% if (potion && potion.category._id.toString() === category._id.toString()) { %>
-                        <option selected value=<%= category._id %>><%= decode(category.name) %></option>
-                    <% }  else { %>
-                        <option value=<%= category._id %>><%= decode(category.name) %></option>
-                    <% } %>
-
-                <% }) %>
-            </select>
-
-            <label for="price">Price</label>
-            <input type="number" name="price" id="price" value="<%- potion?.price %>">
-
-            <label for="number_in_stock">Number in stock</label>
-            <input type="number" name="number_in_stock" id="number_in_stock" value="<%- potion?.number_in_stock %>">
-
-            <button type="submit">Submit</button>
-        </form>
-
-        <% if (errors) { %>
-            <ul>
-                <% errors.forEach(error => { %>
-                    <li><%= error.msg %></li>
-                <% }) %>
-            </ul>
-        <% } %>
-    </main>
+    <div class="wrapper">
+        <main class="form">
+            <h1>Nouvelle potion</h1>
+            <form action="<%= formAction %>" method="POST">
+                <div>
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" value="<%- potion?.name %>">
+                </div>
+                <div>
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" cols="30" rows="10"><%- potion?.description %></textarea>
+                </div>
+                <div>
+                    <label for="category">Catégorie</label>
+                    <select name="category" id="category">
+                        <option value="">Please pick a category</option>
+                        <% categories.forEach(category => { %>
+                            <% if (potion && potion.category._id.toString() === category._id.toString()) { %>
+                                <option selected value=<%= category._id %>><%= decode(category.name) %></option>
+                            <% }  else { %>
+                                <option value=<%= category._id %>><%= decode(category.name) %></option>
+                            <% } %>
+                        <% }) %>
+                    </select>
+                </div>
+                <fieldset>
+                    <div>
+                        <label for="price">Price</label>
+                        <input type="number" name="price" id="price" value="<%- potion?.price %>">
+                    </div>
+                    <div>
+                        <label for="number_in_stock">Number in stock</label>
+                        <input type="number" name="number_in_stock" id="number_in_stock" value="<%- potion?.number_in_stock %>">
+                    </div>
+                </fieldset>
+                <button type="submit" class="btn primary">Submit</button>
+            </form>
+            <% if (errors) { %>
+                <ul>
+                    <% errors.forEach(error => { %>
+                        <li><%= error.msg %></li>
+                    <% }) %>
+                </ul>
+            <% } %>
+        </main>
+    </div>
 
     <%- include("./partials/footer.ejs") %>
 </body>
