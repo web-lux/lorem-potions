@@ -11,14 +11,14 @@
 
             <div class="user-actions">
                 <div class="searchbar">
-                    <input type="text" aria-label="search bar" class="searchbar-input" placeholder="Filtrer...">
+                    <input type="text" aria-label="search bar" class="searchbar-input" placeholder="Filter name...">
                 </div>
                 <button class="btn primary" aria-label="Create new category">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2 7H12H2ZM7 2V12V2Z" fill="white"/>
                         <path d="M2 7H12M7 2V12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <a href="/potions/create">Nouvelle potion</a>
+                    <a href="/potions/create">New potion</a>
                 </button>
             </div>
 
@@ -28,11 +28,11 @@
 
                     <thead>
     
-                            <th>Nom</th>
+                            <th>Name</th>
                             <th>Description</th>
-                            <th>Catégorie</th>
-                            <th>Prix</th>
-                            <th>En stock</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Number in stock</th>
                     </thead>
     
                     <tbody>
@@ -61,8 +61,8 @@
              
             <% } else { %>
                 <p>
-                    Aucune potion trouvée. 
-                    <a href="/potions/create">En créer une ?</a>
+                    No potion found.
+                    <a href="/potions/create" class="bold">Create one ?</a>
                 </p>
             <% } %>
 

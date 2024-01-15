@@ -3,7 +3,7 @@
     <%- include("./partials/header.ejs") %>
     <div class="wrapper">
         <main class="form">
-            <h1>Nouvelle potion</h1>
+            <h1>New potion</h1>
             <form action="<%= formAction %>" method="POST">
                 <div>
                     <label for="name">Name</label>
@@ -14,7 +14,7 @@
                     <textarea name="description" id="description" cols="30" rows="10"><%- potion?.description %></textarea>
                 </div>
                 <div>
-                    <label for="category">Catégorie</label>
+                    <label for="category">Category</label>
                     <select name="category" id="category">
                         <option value="">Please pick a category</option>
                         <% categories.forEach(category => { %>

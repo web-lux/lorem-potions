@@ -65,7 +65,7 @@ const category_delete = async (req, res) => {
             await Categories.findOneAndDelete({ _id: req.params.id }).exec();
             res.json({ redirect: "/categories", err: null });
         } else {
-            res.json({ redirect: null, err: "Suppression impossible: la catégorie contient encore des élements." });
+            res.json({ redirect: null, err: "Unable to delete : this category still contains elements." });
         }
 
     } catch (err) {

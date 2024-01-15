@@ -7,18 +7,18 @@
 
         <main class="index">
 
-            <h1>Catégories</h1>
+            <h1>Categories</h1>
 
             <div class="user-actions">
                 <div class="searchbar">
-                    <input type="text" aria-label="search bar" class="searchbar-input" placeholder="Filtrer...">
+                    <input type="text" aria-label="search bar" class="searchbar-input" placeholder="Filter name...">
                 </div>
                 <button class="btn primary" aria-label="Create new category">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2 7H12H2ZM7 2V12V2Z" fill="white"/>
                         <path d="M2 7H12M7 2V12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <a href="/categories/create">Nouvelle catégorie</a>
+                    <a href="/categories/create">New category</a>
                 </button>
             </div>
 
@@ -28,7 +28,7 @@
 
                     <thead>
     
-                            <th>Nom</th>
+                            <th>Name</th>
                             <th>Description</th>
                         
                     </thead>
@@ -50,8 +50,8 @@
              
             <% } else { %>
                 <p>
-                    Aucune catégorie trouvée. 
-                    <a href="/categories/create">En créer une ?</a>
+                    No category found.
+                    <a href="/categories/create" class="bold">Create one ?</a>
                 </p>
             <% } %>
 
