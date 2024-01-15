@@ -3,10 +3,13 @@ const Potions = require("../models/potions");
 const { body, validationResult } = require("express-validator");
 const { decode } = require("html-entities");
 
-const category_index = (req, res) => {
-    Categories.find()
-        .then(data => res.render("categoryIndex", { title: "Categories", categories: data, decode: decode }))
-        .catch (err => console.log(err));
+const category_index = async (req, res) => {
+    try {
+        const categories = await Categories.find().exec();
+        res.render("categoryIndex", { title: "Categories", categories: categories, decode: decode });
+    } catch (err) {
+        console.error(err);
+    };
 };
 
 const category_create_get = (req, res) => {
@@ -38,40 +41,45 @@ const category_create_post = [
 ];
 
 const category_details = async (req, res) => {
-    const category = await Categories.findById(req.params.id).exec();
-    const potions = await Potions.find({ category: req.params.id }).exec();
-    
     try {
+        const category = await Categories.findById(req.params.id).exec();
+        const potions = await Potions.find({ category: req.params.id }).exec();
+
         if (category === null) {
             res.redirect("/404");
         } else {
             res.render("categoryDetails", { title: category.name, category: category, potions: potions.length === 0 ? null : potions, decode: decode });
         };
+
     } catch (err) {
-        console.log(err);
+        console.error(err);
         res.redirect("404");
     };
 };
 
-const category_delete = (req, res) => {
-    Categories.findOneAndDelete({ _id: req.params.id })
-        .then(data => res.json({ redirect: "/categories" }))
-        .catch(err => console.log(err));
+const category_delete = async (req, res) => {
+    try {
+        await Categories.findOneAndDelete({ _id: req.params.id }).exec();
+        res.json({ redirect: "/categories" });
+    } catch (err) {
+        console.error(err);
+    }
 };
 
-const category_modify_get = (req, res) => {
-    Categories.findOne({ _id: req.params.id })
-    .exec()
-    .then(data => {
-        if (data === null) {
+const category_modify_get = async (req, res) => {
+    try {
+        const category = await Categories.findOne({ _id: req.params.id }).exec();
+
+        if (category === null) {
             res.redirect("/404");
         } else {
-            res.render("categoryForm", { title: "Modify category", formAction: `/categories/${req.params.id}/modify`, category: data, errors: null });
-    }
-})
-    .catch(err => {
+            res.render("categoryForm", { title: "Modify category", formAction: `/categories/${req.params.id}/modify`, category: category, errors: null });
+        }
+
+    } catch (error) {
+        console.error(err);
         res.redirect("404");
-    });
+    }
 };
 
 const category_modify_post = [
@@ -86,7 +94,7 @@ const category_modify_post = [
                 title: "Modify category", formAction: `/categories/${req.params.id}/modify`, category: category, errors: validationError.array()
             });
         } else {
-            const updatedCategory = await Categories.findByIdAndUpdate(req.params.id, category, {});
+            const updatedCategory = await Categories.findByIdAndUpdate(req.params.id, category, {}).exec();
             res.redirect(updatedCategory.url);
         }
     }
