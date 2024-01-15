@@ -13,13 +13,15 @@
                 <div class="searchbar">
                     <input type="text" aria-label="search bar" class="searchbar-input" placeholder="Filter name...">
                 </div>
-                <button class="btn primary" aria-label="Create new category">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2 7H12H2ZM7 2V12V2Z" fill="white"/>
-                        <path d="M2 7H12M7 2V12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <a href="/categories/create">New category</a>
-                </button>
+                <a href="/categories/create">
+                    <button class="btn primary" aria-label="Create new category">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 7H12H2ZM7 2V12V2Z" fill="white"/>
+                            <path d="M2 7H12M7 2V12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        New category
+                    </button>
+                </a>
             </div>
 
             <% if (categories.length > 0) { %>
