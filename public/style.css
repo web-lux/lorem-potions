@@ -209,6 +209,10 @@ table tbody td a {
     font-weight: 600;
 }
 
+a.bold {
+    font-weight: 600;
+}
+
 /* specific */
 
 .user-actions {
