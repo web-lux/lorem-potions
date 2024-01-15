@@ -59,8 +59,15 @@ const category_details = async (req, res) => {
 
 const category_delete = async (req, res) => {
     try {
-        await Categories.findOneAndDelete({ _id: req.params.id }).exec();
-        res.json({ redirect: "/categories" });
+        const potions = await Potions.find({ category: req.params.id }).exec();
+        
+        if (potions.length === 0) {
+            await Categories.findOneAndDelete({ _id: req.params.id }).exec();
+            res.json({ redirect: "/categories", err: null });
+        } else {
+            res.json({ redirect: null, err: "Suppression impossible: la catégorie contient encore des élements." });
+        }
+
     } catch (err) {
         console.error(err);
     }

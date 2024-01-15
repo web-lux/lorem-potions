@@ -54,7 +54,13 @@
                 const url = `/categories/${deleteBtn.dataset.id}`;
                 fetch(url, { method: 'DELETE' })
                 .then(res => res.json())
-                .then(res => window.location.replace(res.redirect))
+                .then(res => {
+                    if (res.redirect) {
+                        window.location.replace(res.redirect);
+                    } else {
+                        alert(res.err);
+                    }
+                })
                 .catch(err => console.log(err));
             });
         </script>
