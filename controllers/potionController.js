@@ -18,7 +18,7 @@ const potion_create_get = (req, res) => {
 const potion_create_post = [
     body("name", "Name should be between 1 and 64 characters").trim().isLength({ min: 1, max: 64 }).escape(),
     body("description", "Description should be between 1 and 1800 characters").trim().isLength({ min: 1, max: 1800 }).escape(),
-    body("category", "Category cannot be empty").trim().isLength({ min: 1 }).escape(),
+    body("category", "Category cannot be empty").trim().exists().isLength({ min: 1 }).escape(),
     body("price", "Price cannot be lower than 1").isFloat({ min: 1 }),
     body("number_in_stock", "Number in stock cannot be lower than 0").isFloat({ min: 1 }),
     async (req, res) => {

@@ -18,11 +18,7 @@
                     <select name="category" id="category">
                         <option value="">Please pick a category</option>
                         <% categories.forEach(category => { %>
-                            <% if (potion && potion.category._id.toString() === category._id.toString()) { %>
-                                <option selected value=<%= category._id %>><%= decode(category.name) %></option>
-                            <% }  else { %>
                                 <option value=<%= category._id %>><%= decode(category.name) %></option>
-                            <% } %>
                         <% }) %>
                     </select>
                 </div>
