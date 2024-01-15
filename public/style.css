@@ -211,20 +211,23 @@ table tbody td a {
 
 /* specific */
 
+.user-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/** index **/
+
 main.index {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-main.index .user-actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
+/** details **/
 
 main.details .user-actions {
-    display: flex;
     justify-content: space-between;
 }
 
@@ -236,6 +239,8 @@ main.details ul li a {
     font-weight: 600;
 }
 
+/** form **/
+
 main.form form,
 main.form form div {
     display: flex;
@@ -245,10 +250,10 @@ main.form form div {
 }
 
 main.form form div {
-    gap: 5px;
+    gap: 5px; /* replace the 15px declared just before */
 }
 
-main.form ul {
+main.form ul { /* appears in case of validation error */
     margin-top: 20px;
     border-top: solid 1px var(--c200);
     padding-top: 20px;
