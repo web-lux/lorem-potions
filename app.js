@@ -2,8 +2,11 @@ const express = require("express");
 const categoryRoutes = require("./routes/categoryRoutes");
 const potionRoutes = require("./routes/potionRoutes");
 const mongoose = require("mongoose");
+const compression = require("compression");
 
 const app = express();
+
+app.use(compression());
 
 app.use(express.static('public'));
 
