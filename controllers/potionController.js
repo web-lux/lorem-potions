@@ -6,7 +6,7 @@ const { decode } = require("html-entities");
 const potion_index = async (req, res) => {
     try {
         const potions = await Potions.find().populate("category").exec();
-        res.render("potionIndex", { title: "Potions", potions: potions, decode: decode });
+        res.render("potionIndex", { title: "Potions", potions: potions, decode: decode, activeNav: "potions" });
     } catch (err) {
         console.error(err);
     }
@@ -15,7 +15,7 @@ const potion_index = async (req, res) => {
 const potion_create_get = async (req, res) => {
     try {
         const categories = await Categories.find().sort({ name: 1 }).exec();
-        res.render("potionForm", { title: "Create potion", formAction: "/potions/create", potion: null, errors: null, categories: categories, decode: decode });
+        res.render("potionForm", { title: "Create potion", formAction: "/potions/create", potion: null, errors: null, categories: categories, decode: decode, activeNav: "potions" });
     } catch (err) {
         console.error(err);
     }
@@ -39,7 +39,7 @@ const potion_create_post = [
 
         if (!validationError.isEmpty()) {
             const categories = await Categories.find().sort({ name: 1 }).exec();
-            res.render("potionForm", { title: "Create potion", formAction: "/potions/create", potion: potion, errors: validationError.array(), categories: categories, decode: decode });
+            res.render("potionForm", { title: "Create potion", formAction: "/potions/create", potion: potion, errors: validationError.array(), categories: categories, decode: decode, activeNav: "potions" });
         } else {
             const potionExists = await Potions.findOne({ name: req.body.name }).collation({ locale: "fr" }).exec();
 
@@ -60,7 +60,7 @@ const potion_details = async (req, res) => {
         if (potion === null) {
             res.redirect("/404");
         } else {
-            res.render("potionDetails", { title: potion.name, potion: potion, decode: decode });
+            res.render("potionDetails", { title: potion.name, potion: potion, decode: decode, activeNav: "potions" });
         }
     } catch (err) {
         console.error(err);
@@ -83,7 +83,7 @@ const potion_modify_get = async (req, res) => {
         if (potion === null) {
             res.redirect("/404");
         } else {
-            res.render("potionForm", { title: "Modify potion", formAction: `/potions/${req.params.id}/modify`, potion: potion, errors: null, categories: categories, decode: decode });
+            res.render("potionForm", { title: "Modify potion", formAction: `/potions/${req.params.id}/modify`, potion: potion, errors: null, categories: categories, decode: decode, activeNav: "potions" });
         }
     } catch (err) {
         console.error(err)
@@ -109,7 +109,7 @@ const potion_modify_post = [
 
         if (!validationError.isEmpty()) {
             const categories = await Categories.find().sort({ name: 1 }).exec();
-            res.render("potionForm", { title: "Modify potion", formAction: `/potions/${req.params.id}/modify`, potion: potion, errors: validationError.array(), categories: categories, decode: decode });
+            res.render("potionForm", { title: "Modify potion", formAction: `/potions/${req.params.id}/modify`, potion: potion, errors: validationError.array(), categories: categories, decode: decode, activeNav: "potions" });
         } else {
             const updatedPotion = await Potions.findByIdAndUpdate(req.params.id, potion, {});
             res.redirect(updatedPotion.url);

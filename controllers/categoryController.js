@@ -6,14 +6,14 @@ const { decode } = require("html-entities");
 const category_index = async (req, res) => {
     try {
         const categories = await Categories.find().exec();
-        res.render("categoryIndex", { title: "Categories", categories: categories, decode: decode });
+        res.render("categoryIndex", { title: "Categories", categories: categories, decode: decode, activeNav: "categories" });
     } catch (err) {
         console.error(err);
     };
 };
 
 const category_create_get = (req, res) => {
-    res.render("categoryForm", { title: "Create category", formAction: "/categories/create", category: null, errors: null });
+    res.render("categoryForm", { title: "Create category", formAction: "/categories/create", category: null, errors: null, activeNav: "categories" });
 };
 
 const category_create_post = [
@@ -25,7 +25,7 @@ const category_create_post = [
 
         if (!validationError.isEmpty()) {
             res.render("categoryForm", {
-                title: "Create category", formAction: "/categories/create", category: category, errors: validationError.array()
+                title: "Create category", formAction: "/categories/create", category: category, errors: validationError.array(), activeNav: "categories"
             });
         } else {
             const categoryExists = await Categories.findOne({ name: req.body.name }).collation({ locale: "fr" }).exec();
@@ -48,7 +48,7 @@ const category_details = async (req, res) => {
         if (category === null) {
             res.redirect("/404");
         } else {
-            res.render("categoryDetails", { title: category.name, category: category, potions: potions.length === 0 ? null : potions, decode: decode });
+            res.render("categoryDetails", { title: category.name, category: category, potions: potions.length === 0 ? null : potions, decode: decode, activeNav: "categories" });
         };
 
     } catch (err) {
@@ -80,7 +80,7 @@ const category_modify_get = async (req, res) => {
         if (category === null) {
             res.redirect("/404");
         } else {
-            res.render("categoryForm", { title: "Modify category", formAction: `/categories/${req.params.id}/modify`, category: category, errors: null });
+            res.render("categoryForm", { title: "Modify category", formAction: `/categories/${req.params.id}/modify`, category: category, errors: null, activeNav: "categories" });
         }
 
     } catch (error) {
@@ -98,7 +98,7 @@ const category_modify_post = [
 
         if (!validationError.isEmpty()) {
             res.render("categoryForm", {
-                title: "Modify category", formAction: `/categories/${req.params.id}/modify`, category: category, errors: validationError.array()
+                title: "Modify category", formAction: `/categories/${req.params.id}/modify`, category: category, errors: validationError.array(), activeNav: "categories"
             });
         } else {
             const updatedCategory = await Categories.findByIdAndUpdate(req.params.id, category, {}).exec();
