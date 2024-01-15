@@ -85,7 +85,7 @@
         let filteredTable = [];
 
         tableRows.forEach(row => {
-            if (row.dataset.name.toLowerCase().startsWith(value.toLowerCase())) {
+            if (row.dataset.name.toLowerCase().includes(value.toLowerCase())) {
                 filteredTable.push(row.outerHTML);
             };
         });
