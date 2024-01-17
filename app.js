@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const categoryRoutes = require("./routes/categoryRoutes");
 const potionRoutes = require("./routes/potionRoutes");
@@ -16,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 mongoose.set("strictQuery", false);
 
-const mongoDB = "mongodb+srv://weblux:sEExQ5hc0gTV4Xkc@cluster0.oyfxfvu.mongodb.net/lorem_potions?retryWrites=true&w=majority";
+const mongoDB = process.env.DB_URL;
 
 main().catch((err) => console.log(err));
 async function main() {
