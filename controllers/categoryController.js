@@ -19,6 +19,7 @@ const category_create_get = (req, res) => {
 const category_create_post = [
     body("name", "Name should be between 1 and 64 characters").trim().isLength({ min: 1, max: 64 }).escape(),
     body("description", "Description should be between 1 and 1800 characters").trim().isLength({ min: 1, max: 1800 }).escape(),
+    body("password", "Password incorrect").equals(process.env.ADMIN_PW),
     async (req, res, next) => {
         const validationError = validationResult(req);
         const category = new Categories({ name: req.body.name, description: req.body.description });
@@ -59,15 +60,18 @@ const category_details = async (req, res) => {
 
 const category_delete = async (req, res) => {
     try {
-        const potions = await Potions.find({ category: req.params.id }).exec();
+        if (req.body === process.env.ADMIN_PW) {
+            const potions = await Potions.find({ category: req.params.id }).exec();
         
-        if (potions.length === 0) {
-            await Categories.findOneAndDelete({ _id: req.params.id }).exec();
-            res.json({ redirect: "/categories", err: null });
+            if (potions.length === 0) {
+                await Categories.findOneAndDelete({ _id: req.params.id }).exec();
+                res.json({ redirect: "/categories", err: null });
+            } else {
+                res.json({ redirect: null, err: "Unable to delete : this category still contains elements." });
+            }
         } else {
-            res.json({ redirect: null, err: "Unable to delete : this category still contains elements." });
+            res.json({ redirect: null, err: "Incorrect password." }); 
         }
-
     } catch (err) {
         console.error(err);
     }
@@ -92,6 +96,7 @@ const category_modify_get = async (req, res) => {
 const category_modify_post = [
     body("name", "Name should be between 1 and 64 characters").trim().isLength({ min: 1, max: 64 }).escape(),
     body("description", "Description should be between 1 and 1800 characters").trim().isLength({ min: 1, max: 1800 }).escape(),
+    body("password", "Password incorrect").equals(process.env.ADMIN_PW),
     async (req, res, next) => {
         const validationError = validationResult(req);
         const category = new Categories({ name: req.body.name, description: req.body.description, _id: req.params.id });

@@ -27,6 +27,7 @@ const potion_create_post = [
     body("category", "Category cannot be empty").trim().exists().isLength({ min: 1 }).escape(),
     body("price", "Price cannot be lower than 1").isFloat({ min: 1 }),
     body("number_in_stock", "Number in stock cannot be lower than 0").isFloat({ min: 1 }),
+    body("password", "Password incorrect").equals(process.env.ADMIN_PW),
     async (req, res) => {
         const validationError = validationResult(req);
         const potion = new Potions({
@@ -69,9 +70,14 @@ const potion_details = async (req, res) => {
 
 const potion_delete = async (req, res) => {
     try {
-        await Potions.findOneAndDelete({ _id: req.params.id });
-        res.json({ redirect: "/potions" });
-    } catch (error) {
+        if (req.body === process.env.ADMIN_PW) {
+            await Potions.findOneAndDelete({ _id: req.params.id });
+            res.json({ redirect: "/potions" });
+        } else {
+            res.json({ redirect: null, err: "Incorrect password." });
+        }
+
+    } catch (err) {
         console.error(err);
     }
 };
@@ -96,6 +102,7 @@ const potion_modify_post = [
     body("category", "Category cannot be empty").trim().isLength({ min: 1 }).escape(),
     body("price", "Price cannot be lower than 1").isFloat({ min: 1 }),
     body("number_in_stock", "Number in stock cannot be lower than 0").isFloat({ min: 1 }),
+    body("password", "Password incorrect").equals(process.env.ADMIN_PW),
     async (req, res) => {
         const validationError = validationResult(req);
         const potion = new Potions({

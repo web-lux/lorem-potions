@@ -15,9 +15,12 @@ app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: true }));
 
+app.use(express.text());
+
 mongoose.set("strictQuery", false);
 
 const mongoDB = process.env.DB_URL;
+const adminPassword = process.env.ADMIN_PW;
 
 main().catch((err) => console.log(err));
 async function main() {
